@@ -37,18 +37,31 @@ public class Exercise_2_Add_Two_Number {
  * 	Solution:
  * 	Elementary Math
  * 
+ * Question ? why must use curr and what if we dont use curr to substitute dummy
+ * 
  */
 	
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 		ListNode dummy = new ListNode(0);
-		ListNode cur = dummy;
+		ListNode curr = dummy;
 		ListNode ln1 = l1,ln2 = l2;
+		int carry = 0;
 		while(ln1 != null || ln2 != null) {
-//			int x = ln1 == null? 
+			int v1 = (ln1 != null)? ln1.val : 0;
+			int v2 = (ln2 != null)? ln2.val : 0;
+			int sum = carry + v1 + v2;
+			carry = sum/10;
+			curr.next = new ListNode(sum%10);
+			curr = curr.next;
+			if(ln1!=null) ln1=ln1.next;
+			if(ln2!=null) ln2=ln2.next;
+			
+		}
+		if(carry>0) {
+			curr.next = new ListNode(carry);
 		}
 		
-		
-		return cur;
+		return dummy.next;
 	}
     
 	public static void main(String[] args) {
