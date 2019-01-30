@@ -1,7 +1,9 @@
 package algirithm.exercise;
  
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Exercise_3_Longest_Substring_Without_Repeating_Characters {
 
@@ -10,24 +12,23 @@ public class Exercise_3_Longest_Substring_Without_Repeating_Characters {
 	 * 
 	 */
 	
-	public static int lengthOfLongestSubstring(String s) {
-		if(s==null || s.length() == 0) return 0;
-		Map<Character,Integer> dict = new HashMap<Character,Integer>();
-		int res = 0;
-		for(int i = 0 , j = 0; i < s.length() ; i++) {
-			if(dict.containsKey(s.charAt(i))) {
-				
-				res = Math.max(i-j+1, res);
-			}else {
-				dict.put(s.charAt(i), i);
-			}
-		}
-		
-        return res;
+    public static int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        Set<Character> set = new HashSet<>();
+        int ans = 0, i = 0, j = 0;
+        while (j < n) {
+           if(set.contains(s.charAt(j))) {
+        	   set.remove(s.charAt(i++));
+           }else {
+        	   set.add(s.charAt(j++));
+        	   ans = Math.max(ans, j-i);
+           }
+        }
+        return ans;
     }
 	
 	public static void main(String[] args) {
-		int res = lengthOfLongestSubstring(" ");
+		int res = lengthOfLongestSubstring("abab");
 		System.out.println(res);
 	}
 }
